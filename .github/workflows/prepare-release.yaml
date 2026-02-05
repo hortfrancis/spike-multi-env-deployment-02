@@ -40,6 +40,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Configure git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
         # Create a new `release/` PR branch,
         # & set the npm package version to be the same as the release version 
       - name: Create release branch + bump version (no tag)
@@ -69,7 +74,7 @@ jobs:
 
           gh pr create \
             --title "chore(release): $VERSION" \
-            --body "$(cat <<'EOF'
+            --body "$(cat <<EOF
           This PR bumps the app version for the next release to environment \`prod\`.
 
           After merging: 
