@@ -21,3 +21,17 @@ export const findReleaseBranch = (): string => {
 
 	return branches[0];
 };
+
+export const extractVersion = (branch: string): string => {
+	const version = branch.replace('release/', '');
+	if (version.startsWith('v')) {
+		throw new Error('Version cannot start with "v"');
+	}
+	if (version === '') {
+		throw new Error('Version cannot be empty');
+	}
+	if (!version.match(/^\d+\.\d+\.\d+$/)) {
+		throw new Error('Version must be in the format x.y.z');
+	}
+	return version;
+};

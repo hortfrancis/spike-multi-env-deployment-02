@@ -3,7 +3,10 @@ import { execSync } from 'node:child_process';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { findReleaseBranch } from './utils';
+import { 
+  findReleaseBranch,
+  extractVersion,
+} from './utils';
 
 // cwd = current working directory 
 let cwd = '';
@@ -62,6 +65,36 @@ describe('release utils', () => {
     });
   });
 
-  
+
+  describe('extractVersion', () => {
+    it('extracts "1.5.0" from "release/1.5.0"', () => {
+      expect(extractVersion('release/1.5.0')).toBe('1.5.0');
+    });
+
+    it('extracts "0.1.0" from "release/0.1.0"', () => {
+      expect(extractVersion('release/0.1.0')).toBe('0.1.0');
+    });
+
+    it('extracts "4.5.6" from "release/4.5.6"', () => {
+      expect(extractVersion('release/4.5.6')).toBe('4.5.6');
+    });
+
+    it('throws on "release/v1.5.0" (version cannot start with "v")', () => {
+      expect(() => extractVersion('release/v1.5.0')).toThrow();
+    });
+
+    it('throws on "main"', () => {
+      expect(() => extractVersion('main')).toThrow();
+    });
+
+    it('throws on "release/" with no version', () => {
+      expect(() => extractVersion('release/')).toThrow();
+    });
+
+    it('throws on "release/abc" (not semver)', () => {
+      expect(() => extractVersion('release/abc')).toThrow();
+    });
+  });
+
 
 });
