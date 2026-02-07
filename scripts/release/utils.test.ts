@@ -19,7 +19,7 @@ beforeEach(() => {
   cwd = mkdtempSync(join(tmpdir(), 'test-repo-'));
 
   run('git init');
-  run('git branch -M main');
+  run('git branch -M main'); // Set default branch to `main` (not `master`)
   run('git config user.email "test@test.com"');
   run('git config user.name "Test"');
   run('git commit --allow-empty -m "initial commit"');
@@ -35,7 +35,7 @@ afterEach(() => {
 describe('release utils', () => {
   describe('findReleaseBranch', () => {
     it('returns branch name when exactly one release/* branch exists', () => {
-      run('git checkout -b release/v1.0.0');
+      run('git branch release/v1.0.0');
 
       const result = findReleaseBranch();
       expect(result).toBe('release/v1.0.0');
@@ -47,11 +47,21 @@ describe('release utils', () => {
     });
 
     it('throws when multiple release/* branches exist', () => {
-      run('git checkout -b release/1.5.0');
-      run('git checkout main');
-      run('git checkout -b release/1.6.0');
+      run('git branch release/1.5.0');
+      run('git branch release/1.6.0');
 
       expect(() => findReleaseBranch()).toThrow();
     });
+
+    it('ignores non-release branches', () => {
+      run('git branch feature/something');
+      run('git branch release/1.5.0');
+
+      const result = findReleaseBranch();
+      expect(result).toBe('release/1.5.0');
+    });
   });
+
+  
+
 });
