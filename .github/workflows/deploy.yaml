@@ -1,4 +1,4 @@
-name: Deploy (dev/uat/pp/prod)
+name: Deploy (dev/pp/prod)
 
 on:
   push:
@@ -35,86 +35,87 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-  deploy-uat:
-    # Tagged commits, but only those that end with `-uat` (e.g., `v1.0.0-uat`)
-    if: startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref_name, '-uat')
-    runs-on: ubuntu-latest
-    environment: uat
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+# Moved to `deploy-uat.yaml`
+  # deploy-uat:
+  #   # Tagged commits, but only those that end with `-uat` (e.g., `v1.0.0-uat`)
+  #   if: startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref_name, '-uat')
+  #   runs-on: ubuntu-latest
+  #   environment: uat
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "22"
 
-      - name: Install dependencies
-        run: npm ci
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: Build React app (uat)
-        run: npm run build:uat
-        env:
-          VITE_APP_VERSION: ${{ github.ref_name }} # Release tag
+  #     - name: Build React app (uat)
+  #       run: npm run build:uat
+  #       env:
+  #         VITE_APP_VERSION: ${{ github.ref_name }} # Release tag
 
-      - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  #     - name: Deploy to Cloudflare Workers
+  #       uses: cloudflare/wrangler-action@v3
+  #       with:
+  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-  deploy-pp:
-    # Tagged commits, but only those that end with `-pp` (e.g., `v1.0.0-pp`)
-    if: startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref_name, '-pp')
-    runs-on: ubuntu-latest
-    environment: pp
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+  # deploy-pp:
+  #   # Tagged commits, but only those that end with `-pp` (e.g., `v1.0.0-pp`)
+  #   if: startsWith(github.ref, 'refs/tags/v') && endsWith(github.ref_name, '-pp')
+  #   runs-on: ubuntu-latest
+  #   environment: pp
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "22"
 
-      - name: Install dependencies
-        run: npm ci
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: Build React app (pp)
-        run: npm run build:pp
-        env:
-          VITE_APP_VERSION: ${{ github.ref_name }} # Release tag
+  #     - name: Build React app (pp)
+  #       run: npm run build:pp
+  #       env:
+  #         VITE_APP_VERSION: ${{ github.ref_name }} # Release tag
 
-      - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  #     - name: Deploy to Cloudflare Workers
+  #       uses: cloudflare/wrangler-action@v3
+  #       with:
+  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-  deploy-prod:
-    # Tagged commits that do not end with suffix (e.g., `v1.0.0`)
-    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
-    runs-on: ubuntu-latest
-    environment: prod
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+  # deploy-prod:
+  #   # Tagged commits that do not end with suffix (e.g., `v1.0.0`)
+  #   if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
+  #   runs-on: ubuntu-latest
+  #   environment: prod
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "22"
 
-      - name: Install dependencies
-        run: npm ci
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: Build React app (prod)
-        run: npm run build:prod
-        env:
-          VITE_APP_VERSION: ${{ github.ref_name }} # Release tag
+  #     - name: Build React app (prod)
+  #       run: npm run build:prod
+  #       env:
+  #         VITE_APP_VERSION: ${{ github.ref_name }} # Release tag
 
-      - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  #     - name: Deploy to Cloudflare Workers
+  #       uses: cloudflare/wrangler-action@v3
+  #       with:
+  #         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  #         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
