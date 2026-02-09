@@ -4,7 +4,6 @@ const env = import.meta.env;
 const ENVIRONMENT = import.meta.env.MODE;
 
 const PACKAGE_VERSION = import.meta.env.VITE_PACKAGE_VERSION;
-const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 
 function App() {
 
@@ -20,7 +19,6 @@ function App() {
       <hr />
 
       <p>npm package version: <code>{PACKAGE_VERSION}</code></p>
-      <p>App version: <code>{APP_VERSION}</code></p>
       <hr />
       
       <p><strong>Current environment: <code className='highlight-environment'>{ENVIRONMENT}</code></strong></p>
