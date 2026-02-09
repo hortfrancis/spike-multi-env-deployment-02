@@ -5,7 +5,7 @@
     "dev": {
       "routes": [
         {
-          "pattern": "spike-multi-env-deployment-01.apps-dev.hortfrancis.dev",
+          "pattern": "spike-multi-env-deployment-02.apps-dev.hortfrancis.dev",
           "custom_domain": true
         }
       ]
@@ -13,27 +13,27 @@
     "uat": {
       "routes": [
         {
-          "pattern": "spike-multi-env-deployment-01.apps-uat.hortfrancis.dev",
-          "custom_domain": true
-        }
-      ]
-    },
-    "pp": {
-      "routes": [
-        {
-          "pattern": "spike-multi-env-deployment-01.apps-pp.hortfrancis.dev",
-          "custom_domain": true
-        }
-      ]
-    },
-    "prod": {
-      "routes": [
-        {
-          "pattern": "spike-multi-env-deployment-01.apps.hortfrancis.dev",
+          "pattern": "spike-multi-env-deployment-02.apps-uat.hortfrancis.dev",
           "custom_domain": true
         }
       ]
     }
+    // "pp": {
+    //   "routes": [
+    //     {
+    //       "pattern": "spike-multi-env-deployment-02.apps-pp.hortfrancis.dev",
+    //       "custom_domain": true
+    //     }
+    //   ]
+    // },
+    // "prod": {
+    //   "routes": [
+    //     {
+    //       "pattern": "spike-multi-env-deployment-02.apps.hortfrancis.dev",
+    //       "custom_domain": true
+    //     }
+    //   ]
+    // }
   },
   "assets": {
     "not_found_handling": "single-page-application"
