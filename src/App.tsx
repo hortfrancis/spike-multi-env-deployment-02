@@ -23,6 +23,11 @@ function App() {
 
       Test commit on `main`, so I can merge `main` to `release/0.1.0` 
       I am a frog 
+      
+      ---
+      
+      Test commit change: 
+      Making a test commit in branch `release/0.1.0 
 
       <hr />
       
