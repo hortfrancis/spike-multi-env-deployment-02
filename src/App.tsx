@@ -20,6 +20,11 @@ function App() {
 
       <p>npm package version: <code>{PACKAGE_VERSION}</code></p>
       <hr />
+
+      Test commit change: 
+      Making a test commit in branch `release/0.1.0 
+
+      <hr />
       
       <p><strong>Current environment: <code className='highlight-environment'>{ENVIRONMENT}</code></strong></p>
       {ENVIRONMENT === 'dev' && (
