@@ -8,7 +8,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: ghostwhite;
+  background: gold;
   color: #222;
 }
 
@@ -22,16 +22,22 @@ p {
   font-size: 1.125rem;
 }
 
+a {
+  color: rgb(9, 133, 182);
+  text-decoration: none;
+}
+
 code {
   padding: 0.1em 0.25em;
   border-radius: 4px;
-  background: #ddd;
+  background: rgb(255, 255, 255);
   /* color: #333;  */
 }
 
 code.highlight-environment {
   padding: 0.2rem 0.4rem;
-  background: #cccccc;
+  background: rgb(29, 191, 255);
+  color:  rgb(0, 0, 0);
   font-size: 1.5rem;
   font-weight: 600;
 }
