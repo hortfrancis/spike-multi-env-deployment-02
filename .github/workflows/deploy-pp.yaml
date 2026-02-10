@@ -1,0 +1,34 @@
+name: Deploy PP to Cloudflare Workers
+# Deploys the frontend React application to a Cloudflare Worker, in PP environment
+
+on:
+  workflow_dispatch: # Only permit manual trigger
+
+jobs:
+  deploy-pp:
+    # Check branch name (to prevent manual trigger from wrong branch)
+    if: startsWith(github.ref, 'refs/heads/release/')
+
+    runs-on: ubuntu-latest
+    environment: pp
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "24" # Most recent LTS version -- as of November 2025
+
+      - name: Install dependencies
+        # `ci` = 'clean install'
+        run: npm ci
+
+      - name: Build React app (pp)
+        run: npm run build:pp
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

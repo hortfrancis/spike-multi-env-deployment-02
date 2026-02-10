@@ -17,15 +17,15 @@
           "custom_domain": true
         }
       ]
+    },
+    "pp": {
+      "routes": [
+        {
+          "pattern": "spike-multi-env-deployment-02.apps-pp.hortfrancis.dev",
+          "custom_domain": true
+        }
+      ]
     }
-    // "pp": {
-    //   "routes": [
-    //     {
-    //       "pattern": "spike-multi-env-deployment-02.apps-pp.hortfrancis.dev",
-    //       "custom_domain": true
-    //     }
-    //   ]
-    // },
     // "prod": {
     //   "routes": [
     //     {
