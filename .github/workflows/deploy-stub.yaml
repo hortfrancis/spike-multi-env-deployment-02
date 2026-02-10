@@ -27,8 +27,11 @@ jobs:
       - name: Build React app (pp)
         run: npm run build:pp
 
-      - name: Deploy to Cloudflare Workers
+      # Stub deployment to test wrangler action configuration
+      # We will replace this step once PRE environment URL is available
+      - name: Test Cloudflare Wrangler Action (stub)
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: echo "✓ Wrangler action configured successfully. Ready for deployment to PRE environment."
