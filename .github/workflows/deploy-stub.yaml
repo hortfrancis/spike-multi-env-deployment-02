@@ -1,5 +1,5 @@
 name: Test deployment to Cloudflare Workers with STUB
-# Replicates deployment without push to Cloudflare Workers 
+# Replicates deployment without push to Cloudflare Workers
 
 on:
   workflow_dispatch: # Only permit manual trigger
@@ -10,7 +10,7 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/release/')
 
     runs-on: ubuntu-latest
-    # No specified environment 
+    # No specified environment
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -34,4 +34,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: echo "✓ Wrangler action configured successfully. Ready for deployment to PRE environment."
+          command: whoami
