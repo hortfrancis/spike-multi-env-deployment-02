@@ -1,0 +1,44 @@
+name: Deploy PROD to Cloudflare Workers
+# Deploys the frontend React application to a Cloudflare Worker, in PROD environment
+
+on:
+  workflow_dispatch: # Only permit manual trigger
+
+jobs:
+  deploy-prod:
+    # Check branch name (to prevent manual trigger from wrong branch)
+    if: startsWith(github.ref, 'refs/heads/release/')
+
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "24" # Most recent LTS version -- as of November 2025
+
+      - name: Install dependencies
+        # `ci` = 'clean install'
+        run: npm ci
+
+      - name: Build React app (prod)
+        run: npm run build:prod
+
+      # Testing a stub deployment step to test wrangler action configuration
+
+      - name: Test Cloudflare Wrangler Action (stub)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: whoami
+
+      # ACtual deployment step
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
